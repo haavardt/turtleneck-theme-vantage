@@ -1,0 +1,160 @@
+<div class="collection-template" data-section-id="{{ section.id }}" data-section-type="collection-section">
+{% assign number = section.settings.products_per_page %}
+{% paginate collection.products by number %}
+  <div id="collection-page">
+    
+    <div class="collection-description desktop-12 tablet-6 mobile-3">
+      <h1>{{ collection.title }}</h1>
+      <div class="rte">{{ collection.description }}</div>
+    </div>
+
+    <div class="clear"></div>
+
+    <div id="full-width-filter" class="desktop-12 tablet-6 mobile-3">
+      {% include 'filter' %}
+    </div>
+    
+    <div class="clear"></div>
+    
+    {% if section.blocks.size > 0 %}
+    {% include 'collection-sidebar' %}
+    {% endif %}
+
+    <div class="product-loop{% if section.blocks.size > 0 %} desktop-10 tablet-5 mobile-3{% endif %}">
+      {% for product in collection.products %}
+      {% assign products-per-row = section.settings.products-per-row %}
+  	  <div class="product-index {% if products-per-row == "6" %}desktop-2{% cycle ' first', '', '', '', '', ' last' %}{% elsif products-per-row == "4" %}desktop-3{% cycle ' first', '', '', ' last' %}{% elsif products-per-row == "3" %}desktop-4{% cycle ' first', '', ' last' %}{% elsif products-per-row == "2" %}desktop-6{% cycle ' first', ' last' %}{% endif %} tablet-half mobile-half" data-alpha="{{ product.title }}" data-price="{{ product.price }}">     
+        {% include 'product-listing' %}
+      </div>
+      {% endfor %} 
+    </div>
+  </div>
+  <div class="clear"></div>
+  {% include 'pagination' %}
+  {% endpaginate %}
+</div>
+
+
+{% schema %}
+  {
+    "name": "Collection",
+	"max_blocks":4,
+    "settings": [
+	 {
+        "type": "select",
+        "id": "products_per_page",
+        "label": "Products per page",
+		"default":"24",
+        "options": [
+          {
+            "value": "24",
+            "label": "24"
+          },
+          {
+            "value": "36",
+            "label": "36"
+          },
+          {
+            "value": "48",
+            "label": "48"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "products-per-row",
+        "label": "Products per row",
+		"default": "4",
+        "options": [
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "sort_by",
+        "label": "Show sort by",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "filter-1-title",
+        "label": "Filter 1 title",
+        "default": "Filter by X"
+      },
+      {
+        "type": "textarea",
+        "id": "sort_a",
+        "label": "Filter 1 tags"
+      },
+      {
+        "type": "text",
+        "id": "filter-2-title",
+        "label": "Filter 2 title",
+        "default": "Filter by Y"
+      },
+      {
+        "type": "textarea",
+        "id": "sort_b",
+        "label": "Filter 2 tags"
+      },
+      {
+        "type": "text",
+        "id": "filter-3-title",
+        "label": "Filter 3 title",
+        "default": "Filter by Z"
+      },
+      {
+        "type": "textarea",
+        "id": "sort_c",
+        "label": "Filter 3 tags"
+      }
+	],
+   "blocks":[  
+      {  
+         "type":"menu",
+         "name":"Menu",
+         "settings":[  
+            {
+               "type": "link_list",
+               "id": "side_nav",
+               "label": "Sidebar menu"
+            },
+           {
+            "type": "text",
+            "id": "title",
+            "label": "Menu title",
+            "default": "Explore"
+           }
+         ]
+      },
+      {  
+         "type":"vendor_list",
+         "name":"Vendor list",
+		 "limit": 1,
+         "settings":[  
+          {
+          "type": "text",
+          "id": "shop_by_designer_title",
+          "label": "Vendor list title",
+          "default": "Shop by Designer"
+          }
+         ]
+      }
+   ]
+  }
+{% endschema %}

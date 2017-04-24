@@ -1,0 +1,107 @@
+<section class="homepage-section featured-collections" data-section-id="{{ section.id }}" data-section-type="collection-list-section">
+  <article class="row">
+    
+    {% if section.settings.title != blank %}
+    <h2 class="section-title clearfix desktop-12 tablet-6 mobile-3"><a href="{{ collection.url }}">{{ section.settings.title | escape }}</a></h2> 
+    {% endif %}   
+    {% if section.blocks.size == 0 %}
+    {% include 'no-blocks' %}
+    {% else %}     
+    <div class="collection-loop">  
+      
+      {% case section.settings.collections-per-row %}
+      {% when '6' %}
+      {%- assign col_per_row = 'desktop-2 tablet-2' -%}
+      {% when '4' %}
+      {%- assign col_per_row = 'desktop-3 tablet-2' -%}
+      {% when '3' %}
+      {%- assign col_per_row = 'desktop-4 tablet-2' -%}
+      {% when '2' %}
+      {%- assign col_per_row = 'desktop-6 tablet-3' -%}
+      {% endcase %}       
+      
+      {% for block in section.blocks %}
+      {%- assign collection = collections[block.settings.collection] -%} 
+      {% if collection != blank %}
+	  {% include 'collection-grid-item' %}
+      {% else %}
+      {% include 'onboard-collection' %}
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+  </article>
+</section>
+<div class="clear"></div>
+ 
+
+{% schema %}
+{
+  "name": "Collection list",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured collections"
+    },
+	{
+        "type": "select",
+        "id": "collections-per-row",
+        "label": "Collections per row",
+		"default": "3",
+        "options": [
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          }
+        ]
+      }
+  ],
+  "blocks": [
+    {
+      "type": "featured_collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "label": "Collection",
+          "id": "collection",
+          "type": "collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collections",
+      "category": "Collection",
+      "settings": {
+      },
+      "blocks": [
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

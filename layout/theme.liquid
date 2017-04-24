@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  
+{% include 'google-fonts' %}
+{% include 'social-media-tags' %}
+  
+  <!-- Meta -->
+  <title>
+    {% if template == 'index' %}{% if page_title contains 'Welcome' %}{{ shop.name }} &ndash; Welcome{% else %}{{ page_title }}{% endif %}{% elsif template == '404' %}Page Not Found{% elsif page_title contains shop.name %}{{ page_title }}{% else %}{{ page_title }} &ndash; {{ shop.name }}{% endif %}
+  </title>
+  {% if page_description %}
+  <meta name="description" content="{{ page_description }}" />
+  {% endif %}
+  <link rel="canonical" href="{{ canonical_url }}" />
+
+  <!-- Viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- CSS -->
+
+  {{ 'stylesheet.css' | asset_url | stylesheet_tag }}  
+  {{ 'queries.css' | asset_url | stylesheet_tag }}
+
+  <!--[if lt IE 9]>
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <!-- JS -->
+
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+  {{ 'theme.js' | asset_url | script_tag }}  
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+  {% if template == 'index' %}
+  {{ 'instafeed.js' | asset_url | script_tag }}
+  {% endif %}    
+
+  {{ content_for_header }}
+
+  {% if template contains 'customers' %}
+  {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+  {{ "customer_area.js"  | shopify_asset_url | script_tag }}
+  {% endif %}
+
+  <!-- Favicon -->
+  {% if settings.favicon %}
+  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
+  {% endif %}
+</head>
+
+<body class="gridlock shifter {% if template == 'index' %}{{ template }}{% endif %}">
+   {% section 'mobile-navigation' %}
+  <div class="shifter-page">
+    <div id="wrapper">
+    {% section'header' %}
+    {% if template contains 'collection' %}
+    {% if collection.description contains '[banner]' %}
+    {% capture banner %}{{ collection.handle }}.jpg{% endcapture %}
+    <div class="collection-banner">
+      <img src="{{ banner | file_url }}" alt="{{ collection.title }}">
+    </div>
+    {% endif %}
+    {% endif %}
+      
+      {% if template contains 'index' or template contains 'blog' or template contains 'list-collections' %}
+      {{ content_for_layout }}
+      {% else %}
+      
+      <div id="content" class="row">
+        {% include 'breadcrumb' %} 
+        {{ content_for_layout }}
+      </div>
+      {% endif %}
+      
+      <div class="clear"></div>   
+    </div> <!-- End wrapper -->
+    {% section 'footer' %}
+  </div>
+  {% if settings.email-popup %}
+  {% include 'popup' %}
+  {% endif %}
+  {% include 'ajaxify-cart' %}
+</body>
+</html>

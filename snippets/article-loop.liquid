@@ -1,0 +1,26 @@
+ 
+<li class="desktop-4 tablet-2 mobile-3{% cycle ' first tablet-first', '', ' last' %}">
+  <div class="rte excerpt">
+    {% if article.image %}
+    <a href="{{ article.url }}">
+      <img class="article-image" src="{{ article.image | img_url: 'grande' }}" alt="{{ article.title }}">
+    </a>
+    {% endif %}
+      {% if article.excerpt != blank %}
+      {{ article.excerpt }}
+      {% endif %}
+  </div>
+  <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+  {% if section.settings.show-date %}
+  {% assign published_at = article.published_at | date: format: 'month_date_year' %}
+  <p class="posted">{{ 'blogs.article.posted_on_date_html' | t: date: published_at }}</p>
+  {% endif %}
+  <div class="article-headline">
+    <p class="rte">{{ article.content | strip_html | truncatewords: 30 }}</p>
+    {% if blog.comments_enabled? %}
+    <small><a href="{{article.url}}#comments">{{ article.comments_count }} {{ 'blogs.article.comments' | t }}</a>
+      {% endif %}
+      <a href="{{ article.url }}"><i>{{ 'blogs.article.read_more' | t }}</i></a>
+    </small>
+  </div>    
+</li>

@@ -1,0 +1,151 @@
+<div class="product-template" data-section-id="{{ section.id }}" data-section-type="product-section" itemscope itemtype="http://schema.org/Product" id="product-{{ product.id }}" class="product-page">
+    <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+    <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+    <div id="product-images" class="desktop-5 desktop-push-1 tablet-3 mobile-3">
+      <div class="slide-gallery">
+        <ul class="slides">
+          {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+          {% for image in product.images %}
+          <li data-thumb="{{ image | product_img_url: '120x' }}" data-image-id="{{ image.id }}" data-flexslider-index="{{ forloop.index0 }}">
+            <img src="{{ image.src | product_img_url: '1600x' }}" alt="{{ image.alt | escape }}">
+          </li>
+          {% endfor %}
+        </ul>
+      </div>  
+    </div>   
+    <div id="product-description" class="desktop-6 mobile-3">
+      <h1 itemprop="name">{{ product.title }}</h1>  
+      <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <p id="product-price">
+          {% if product.available %}
+          {% if product.compare_at_price > product.price %}
+          <span class="product-price" itemprop="price">{{ product.price | money }}</span>&nbsp;<span class="was">{{ product.compare_at_price | money }}</span>
+          {% else %}
+          <span class="product-price" itemprop="price">{{ product.price | money }}</span>
+          {% endif %}
+          {% else %}
+          <span class="product-price" itemprop="price">Sold Out</span>
+          {% endif %}
+        </p>
+        <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+        <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+        {% include 'product-form' %}  
+      </div>
+      <div class="desc">
+        <div id="soc">
+          {% include 'social' with product %}
+        </div>
+        <h4>{{ 'products.product.product_details' | t }}</h4>
+        <div class="rte">{{ product.description | split: '<!-- split -->' | first }}</div>
+        {% unless section.blocks.size == 0 %}
+        <ul class="vantage-accordion">       
+          {% for block in section.blocks %}
+          {%- assign acc_page = pages[block.settings.page] -%}
+          <li id="{{ block.id }}" class="{{ forloop.index }}-accordion">
+            <a href="#{{ block.id }}"><h4>{{ acc_page.title }}</h4></a>          
+            <ul class="sub-menu">					
+              <li><div class="rte">{{ acc_page.content }}</div></li>
+            </ul>
+          </li>
+          {% endfor %}
+        </ul>
+
+        
+        {% endunless %}
+      </div>
+      
+      {% if section.settings.type or section.settings.vendor or section.settings.collection %}
+      
+      <div id="productnav" class="desktop-12 mobile-3">
+        <h4>{{ 'products.product.view_more' | t }}</h4>
+        <ul class="view-more">
+          {% if section.settings.type %}<li>{{ 'products.product.product_type' | t }} {{ product.type | link_to_type }}</li>{% endif %}
+          {% if section.settings.vendor %}<li>{{ 'products.product.brand' | t }}: {{ product.vendor | link_to_vendor }}</li>{% endif %}
+          {% if section.settings.collection %}
+            {% if collection %}
+            <li>{{ 'products.product.collection' | t }} {% capture url %}/collections/{{ collection.handle }}{% endcapture %}{{ collection.title | link_to: url }}</li>
+            {% endif %}
+          {% endif %}
+        </ul>
+      </div>
+      
+      {% endif %}
+      
+    </div>
+    <div class="clear"></div>
+    {% if product.description contains '<!-- split -->' %}
+    <div id="split-description" class="desktop-12 tablet-6 mobile-3">
+      <h4 class="section-title">{{ 'products.product.product_more_details' | t }}</h4>
+      <div class="rte">{{ product.description | split: '<!-- split -->' | last }}</div>
+    </div>
+    {% endif %}
+    {% if section.settings.show_related_products %}
+    {% include 'related-products' %}
+    {% endif %}
+
+</div>
+  
+
+{% schema %}
+{
+    "name": "Product page",
+	"max_blocks":5,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show-qty",
+        "label": "Show quantity input",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "use-swatch-images",
+        "label": "Add custom swatches",
+        "default": true,
+		"info": "when uploading custom swatch images only"
+      },  
+      {
+        "type": "checkbox",
+        "id": "type",
+        "label": "Show product type",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "vendor",
+        "label": "Show product vendor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "collection",
+        "label": "Show product collection",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show related products"
+      },
+      {
+        "type": "text",
+        "id": "related_prod_title",
+        "label": "Related products title",
+        "default": "Similar items"
+      }
+    ],
+	"blocks":[  
+      {  
+         "type":"page",
+         "name":"page",
+         "settings":[  
+          {
+            "type": "page",
+            "id": "page",
+            "label": "Show content from"
+          }
+         ]
+      }
+   ]
+  }
+{% endschema %}

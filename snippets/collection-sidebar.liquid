@@ -1,0 +1,63 @@
+<div class="desktop-2 tablet-1 mobile-hide">
+  <div id="collection-sidebar">     
+    {% comment %}
+    Include block settings for collection template to add sidebar menus
+    {% endcomment %}
+
+    {% for block in section.blocks %}
+
+    {% if block.type == 'vendor_list' %}
+    {% if collection.handle == "all" %}
+    <ul>
+      <h4>{{ block.settings.shop_by_designer_title }}</h4>
+      {% for product_vendor in shop.vendors %}
+      <li>{{ product_vendor | link_to_vendor  }}</li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+
+    <ul>
+      <h4>{{ block.settings.shop_by_designer_title }}</h4>
+      {% for product_vendor in collection.all_vendors %}
+      <li class="{{ product_vendor | handelize }}">{{ product_vendor | link_to_vendor }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% else %}    
+    
+    <ul class="accordion-side-menu" {{ block.shopify_attributes }}>
+      <label>{{ block.settings.title }}</label>
+      {% for link in linklists[block.settings.side_nav].links %}
+      {% capture child_list_handle %}{{ link.title | handleize }}{% endcapture %}
+      {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+      <li class="accordion-toggle">{{ link.title }}</li>
+      <div class="accordion-content">
+        <ul class="sub">
+          {% for l in linklists[child_list_handle].links %}
+          {% capture child_list_handle %}{{ l.title | handleize }}{% endcapture %}
+          {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %} 
+          <div class="accordion-toggle2">{{ l.title }}</div>
+          <div class="accordion-content2">
+            <ul class="sub">
+              {% for l in linklists[child_list_handle].links %}
+              <li><a href="{{ l.url }}">{{ l.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% else %}
+          <li><a href="{{ l.url }}">{{ l.title }}</a></li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      {% else %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endfor %}    
+
+  </div>
+</div>

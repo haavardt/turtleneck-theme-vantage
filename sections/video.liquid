@@ -1,0 +1,91 @@
+<section class="homepage-section video-section" data-section-id="{{ section.id }}" data-section-type="video-section">
+
+  {% if section.settings.title != blank %}
+  <div class="row">
+    <h2 class="section-title desktop-12 tablet-6 mobile-3">{{ section.settings.title }}</h2>
+  </div>
+  {% endif %}
+
+  {% if section.settings.display-wide %}
+  {% else %}
+  <div class="row">
+    <div class="desktop-12 tablet-6 mobile-3">
+      {% endif %}
+
+      {% for block in section.blocks %}
+      <div  class="video-wrapper">
+        {% if block.settings.video_url == blank %}
+        <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+        {% else %}
+        {% if block.settings.video_url.type == "youtube" %}
+        <iframe src="//www.youtube.com/embed/{{ block.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+        {% endif %}
+        {% if block.settings.video_url.type == "vimeo" %}
+        <iframe src="//player.vimeo.com/video/{{ block.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+        {% endif %}
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      {% if section.blocks.size == 0 %}
+      {% include 'no-blocks' %}
+      {% endif %}   
+
+      {% if section.settings.display-wide %}
+      {% else %}
+    </div>
+  </div>
+  {% endif %}  
+
+</section>
+
+
+
+
+
+
+{% schema %}
+{  
+   "name":"Featured video",
+   "max_blocks": 1,
+   "settings":[  
+   {  
+      "type":"text",
+      "id":"title",
+      "label":"Heading",
+      "default":"Featured video"
+   },
+    {
+      "type": "checkbox",
+      "id": "display-wide",
+	  "label": "Full width"
+    }
+   ],
+   "blocks":[  
+      {  
+        "type":"video",
+        "name":"Featured video",
+        "settings":[
+          {
+            "type": "video_url",
+            "id": "video_url",
+            "label": "YouTube or Vimeo link",
+            "accept": ["youtube", "vimeo"]
+          }
+         ]
+       }
+     ],
+   "presets":[  
+      {  
+         "name":"Featured video",
+         "category":"Video",
+         "blocks":[  
+            {  
+               "type":"video"
+            }
+         ]
+      }
+   ]
+}
+{% endschema %}
+

@@ -1,0 +1,64 @@
+<section class="homepage-section featured-content" data-section-id="{{ section.id }}" data-section-type="featured-content">
+
+  <article class="row">
+    <h1 class="section-title clearfix desktop-12">{{ section.settings.title | escape }}</h1>
+    
+    <div class="clear"></div>
+    <div class="pages-content desktop-12 tablet-6 mobile-3">
+      {% if section.settings.page != blank %}
+      {%- assign feat_page = pages[section.settings.page] -%}
+      {{ feat_page.content }}
+      {% else %}
+      <div class="rte">
+        {{ section.settings.rich-text }}
+      </div>
+      {% endif %}
+
+      {% if section.settings.page == blank and section.settings.rich-text == blank %}
+      <div class="content-onboard">
+        <p>Use this section to tell customers about your store or add content from one of your pages which makes it easy to add images, video or any other content</p>
+      </div>
+      {% endif %}
+    </div>
+    
+    
+  </article>
+
+</section>
+<div class="clear"></div>
+
+
+{% schema %}
+{   
+  "name": "Additional content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Welcome"
+    },
+      {
+        "type": "richtext",
+        "id": "rich-text",
+        "label": "Text",
+        "info": "Use basic HTML to format text",
+            "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+
+      },
+    {
+      "type": "page",
+      "id": "page",
+	  "label": "Or Show content from a page"
+    }
+   ],
+   "presets":[  
+      {  
+       "name":"Rich text",
+       "category":"Text"
+
+	  }
+   ]
+}
+{% endschema %}
+

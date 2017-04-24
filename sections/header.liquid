@@ -1,0 +1,358 @@
+<div class="header-section" data-section-id="{{ section.id }}" data-section-type="header-section">
+  <div id="top-bar">
+    <div class="row">
+      <div class="desktop-12 tablet-6 mobile-3">
+        {{ section.settings.top_bar_message }}
+      </div>
+    </div>
+  </div>   
+  <div id="mobile-header">
+    <div class="row">
+      <ul id="mobile-menu" class="mobile-3">
+        {% if shop.customer_accounts_enabled %}
+        {% if customer  %}        
+        <li>
+          <a href="/account/login"><i class="fa fa-user"></i></a>
+        </li>
+        <li>
+          <a href="/account/logout"><i class="fa fa-user-times"></i></a>
+        </li>
+        {% else %}
+        <li>
+          <a href="/account/login"><i class="fa fa-user"></i></a>
+        </li>
+        {% endif %}
+        {% endif %}        
+        <li>
+          <a href="/cart"><i class="fa fa-shopping-cart"></i> <span class="cart-count">{{ cart.item_count }}</span></a>
+        </li>
+        <li>
+          <span class="shifter-handle">Menu</span>
+        </li>
+      </ul>     
+    </div>
+  </div>
+
+  <div id="header-wrapper">
+    {% if section.settings.full-width-header %}
+    <div class="gridlock-fluid">
+      <div class="row">
+        {% endif %}
+        <div id="header" class="row">	
+          <div id="search" class="desktop-3 tablet-2 mobile-hide">
+            <form action="/search" method="get">
+              <i class="fa fa-search"></i>
+              <input type="text" name="q" id="q" class="search-field" placeholder="{{ 'general.search.placeholder' | t }}" />
+            </form>
+          </div>
+          <div id="logo" class="desktop-6 tablet-2 mobile-3">
+            {% if section.settings.logo != blank %}
+            {%- assign image_size = '600x' -%}
+            <a href="/">
+              <img src="{{ section.settings.logo | img_url: image_size }}" itemprop="logo">        
+            </a>
+            {% else %}
+            <a href="/">{{ shop.name }}</a>
+            {% endif %}  
+          </div> 
+          <ul id="cart" class="desktop-3 tablet-2 mobile-hide">
+            {% if shop.customer_accounts_enabled %}
+
+            {% if customer  %}
+            <li>
+              <a href="/account/login">{{ 'customer.account.title' | t }}</a>
+            </li>
+            <li>
+              <a href="/account/logout">{{ 'customer.account.logout' | t }}</a>
+            </li>
+            {% else %}
+            <li>
+              <a href="/account/login">{{ 'customer.account.title' | t }}</a>
+            </li>
+            {% endif %}
+
+            {% endif %}
+            <li>
+              <a href="/cart">{{ 'cart.general.title' | t }}: (<span class="cart-count">{{ cart.item_count }}</span>)</a>
+            </li>
+          </ul>   
+        </div>  <!-- End Header -->
+
+        <div class="row" id="navigation-wrapper">
+          <div class="navigation desktop-12">
+            <ul class="nav">
+              {% for link in linklists[section.settings.main_nav ].links %}
+              {% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+              {% capture linkurl %}{{ link.url }}{% endcapture %} 
+              {% capture child_list_handle %}{{ link.title | handleize }}{% endcapture %}          
+              {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+              <li class="dropdown">{{ link.title | link_to: link.url }}  
+                <ul class="submenu">
+                  {% for l in linklists[child_list_handle].links %}
+                  {% capture child_list_handle %}{{ l.title | handleize }}{% endcapture %}
+                  {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}      
+                  <li class="nest"><a href="{{ l.url }}">{{ l.title }}</a>                 
+                    <ul class="nested">
+                      {% for l in linklists[child_list_handle].links %}
+                      <li><a href="{{ l.url }}">{{ l.title }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  {% else %}
+                  <li><a href="{{ l.url }}">{{ l.title }}</a></li>    
+                  {% endif %}
+
+                  {% endfor %}
+                </ul>
+              </li>
+              {% else %}
+              <li>{{ link.title | link_to: link.url }}</li>
+              {% endif %}     
+              {% endfor %}
+            </ul>
+          </div> 
+        </div>
+        {% if section.settings.full-width-header %}
+      </div>
+    </div>
+    {% endif %}
+  </div> <!-- End wrapper -->
+</div>
+
+<div class="clear"></div>
+
+
+<style>
+  #top-bar, #top-bar p { font-size: {{ section.settings.top_bar_size }}; }
+
+  
+  #logo a { 
+    font-size: {{ section.settings.logo-size }}; 
+    text-transform: {{ section.settings.logo-transform }}; 
+    font-weight: {{ section.settings.logo-weight }}; 
+  }
+  @media screen and ( min-width: 740px ) {
+    #logo img { max-width: {{ section.settings.logo_max_width }}px; }
+  }
+ {% if section.settings.full-width-header %}
+  #navigation-wrapper { 
+    {% if section.settings.nav_border_size != 0 %}
+    border-bottom: {{ section.settings.nav_border_size }} solid {{ settings.nav_border_color }};
+    {% endif %}
+    background: {{ settings.navigation }}; 
+  }
+  {% else %}
+  .navigation { 
+    {% if section.settings.nav_border_size != 0 %}
+    border-bottom: {{ section.settings.nav_border_size }} solid {{ settings.nav_border_color }};
+    {% endif %}
+    background: {{ settings.navigation }}; 
+  }
+  {% endif %}
+</style>
+
+{% schema %}
+{
+    "name": "Header",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "full-width-header",
+		"label":"Full width header"
+      },
+		{
+        "type": "header",
+        "content": "Logo"
+      },
+   	 {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "logo_max_width",
+      "label": "Custom logo width (in pixels)",
+      "default": "100"
+      },
+       {
+        "type": "select",
+        "id": "logo-size",
+        "label": "Size",
+        "options": [
+         {
+            "value": "12px",
+            "label": "12px"
+          },
+          {
+            "value": "14px",
+            "label": "14px"
+          },
+          {
+            "value": "16px",
+            "label": "16px"
+          },
+          {
+            "value": "18px",
+            "label": "18px"
+          },
+          {
+            "value": "20px",
+            "label": "20px"
+          },
+          {
+            "value": "22px",
+            "label": "22px"
+          },
+          {
+            "value": "24px",
+            "label": "24px"
+          },
+          {
+            "value": "26px",
+            "label": "26px"
+          },
+          {
+            "value": "28px",
+            "label": "28px"
+          },
+          {
+            "value": "30px",
+            "label": "30px"
+          },
+          {
+            "value": "32px",
+            "label": "32px"
+          },
+          {
+            "value": "34px",
+            "label": "34px"
+          },
+          {
+            "value": "36px",
+            "label": "36px"
+		  }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "logo-transform",
+        "label": "Case",
+        "options": [
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "none",
+            "label": "Normal"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "logo-weight",
+        "label": "Weight",
+        "options": [
+          {
+            "value": "400",
+            "label": "Normal"
+          },
+          {
+            "value": "300",
+            "label": "Light"
+          },
+          {
+            "value": "700",
+            "label": "Bold"
+          }
+        ]
+      },
+
+      {
+        "type": "header",
+        "content": "Promotional text"
+      },
+      {
+        "type": "richtext",
+        "id": "top_bar_message",
+        "label": "Text"
+      }, 
+	  {
+        "type": "select",
+        "id": "top_bar_size",
+        "label": "Size",
+        "options": [
+          {
+            "value": "12px",
+            "label": "12px"
+          },
+          {
+            "value": "14px",
+            "label": "14px"
+          },
+          {
+            "value": "16px",
+            "label": "16px"
+          },
+          {
+            "value": "18px",
+            "label": "18px"
+          },
+          {
+            "value": "20px",
+            "label": "20px"
+          },
+          {
+            "value": "22px",
+            "label": "22px"
+          },
+          {
+            "value": "24px",
+            "label": "24px"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Navigation"
+      },      
+      {
+        "type": "link_list",
+        "id": "main_nav",
+        "label": "Choose main menu"
+      },
+      {
+        "type": "select",
+        "id": "nav_border_size",
+        "label": "Bottom border",
+        "options": [
+          {
+            "value": "0",
+            "label": "None"
+          },
+          {
+            "value": "1px",
+            "label": "1px"
+          },
+          {
+            "value": "2px",
+            "label": "2px"
+          },
+          {
+            "value": "3px",
+            "label": "3px"
+          },
+          {
+            "value": "4px",
+            "label": "4px"
+          },
+          {
+            "value": "5px",
+            "label": "5px"
+          }
+        ]
+      }
+	]
+  }
+{% endschema %}

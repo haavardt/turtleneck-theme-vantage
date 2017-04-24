@@ -1,0 +1,60 @@
+<div class="blog-template" data-section-id="{{ section.id }}" data-section-type="blog-template">
+  <div id="page">
+
+    {% if section.settings.image != blank %}
+    {%- assign image_size = '1920x' -%}
+    {%- assign img_url = section.settings.image | img_url: image_size -%}
+    <div class="collection-banner">
+      <img src="{{ img_url }}">
+    </div>
+    {% endif %}     
+    
+    <div id="content" class="row">
+      <h1 class="desktop-12" style="text-align: center">{{ blog.title }}</h1>
+      
+    {% if section.settings.text != blank %}
+    <div class="desktop-12 tablet-6 mobile-3 blog-description">
+    {{ section.settings.text }}
+    </div>
+    {% endif %}      
+      
+      {% paginate blog.articles by 48 %}
+      <ul class="blog-articles">
+        {% for article in blog.articles %}
+		{% include 'article-loop' %}
+        {% endfor %}
+      </ul>
+      <div class="clear"></div>
+      {% include 'pagination' %}
+      {% endpaginate %}
+    </div>  
+  </div>
+</div>
+
+
+
+{% schema %}
+{
+"name": "Blog",
+"settings": 
+	[
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+    {
+        "id": "text",
+        "type": "richtext",
+        "label": "Text",
+        "default": "<p>Add some descriptive text to your Blog page.</p>"
+     },
+      {
+        "type": "checkbox",
+        "id": "show-date",
+        "label": "Show published date",
+        "default": true
+      }
+    ]
+}
+{% endschema %}

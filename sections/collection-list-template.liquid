@@ -1,0 +1,97 @@
+<div class="collection-list-template" data-section-id="{{ section.id }}" data-section-type="collection-list-section">
+
+
+  {% if section.settings.image != blank %}
+  {%- assign image_size = '2048x' -%}
+  {%- assign img_url = section.settings.image | img_url: image_size -%}
+  <div class="collection-banner">
+    <img src="{{ img_url }}">
+  </div>
+  {% endif %} 
+  
+  <div id="content" class="row">
+
+    
+    {% include 'breadcrumb' %}	
+    
+  
+    <div id="collection-page">
+      <div class="collection-description desktop-12 tablet-6 mobile-3">
+      <h1>{{ 'collections.general.all_collections' | t }}</h1>
+        {% if section.settings.text != blank %}
+    	<div class="rte">{{ section.settings.text }}</div>
+        {% endif %}
+    </div>      
+      
+      {% paginate collections by 48 %}
+      {% if collections.size > 0 %}
+      <div class="product-loop">
+        {% case section.settings.collections-per-row %}
+        {% when '6' %}
+        {%- assign col_per_row = 'desktop-2 tablet-2' -%}
+        {% when '4' %}
+        {%- assign col_per_row = 'desktop-3 tablet-2' -%}
+        {% when '3' %}
+        {%- assign col_per_row = 'desktop-4 tablet-2' -%}
+        {% when '2' %}
+        {%- assign col_per_row = 'desktop-6 tablet-3' -%}
+        {% endcase %}  
+        {% for collection in collections %}
+        {% include 'collection-grid-item' %}
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>{{ 'collections.general.no_matches' | t }}</p>
+      {% endif %}
+      <div class="clear"></div>
+      {% include 'pagination' %}
+      {% endpaginate %}
+    </div>
+  </div>
+</div>
+
+
+
+
+{% schema %}
+  {
+    "name": "Collection grid",
+    "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Banner image"
+        },
+    	{
+        "id": "text",
+        "type": "richtext",
+        "label": "Text",
+        "default": "<p>Add some descriptive text to your all collections page.</p>"
+     	},
+		{
+        "type": "select",
+        "id": "collections-per-row",
+        "label": "Collections per row",
+		"default": "3",
+        "options": [
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          }
+        ]
+      }
+	]
+  }
+{% endschema %}

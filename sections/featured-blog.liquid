@@ -1,0 +1,79 @@
+<section class="homepage-section featured-blog no-fouc" data-section-id="{{ section.id }}" data-section-type="featured-blog">
+  <div class="row">
+    <div id="homepage-blog">
+      {% if section.settings.title != blank %}
+      <h2 class="section-title clearfix desktop-12 tablet-6 mobile-3">{{ section.settings.title | escape }}</h2>
+      {% endif %}
+      <div class="clear"></div>
+      {%- assign blog = blogs[section.settings.blog] -%}
+      <ul class="blog-articles">
+        {% if blog == blank %}
+
+        {% for i in (1..3) %}
+        <li class="desktop-4 tablet-2 mobile-3{% cycle ' first tablet-first', '', ' last' %}">   
+          <div class="excerpt rte">
+            <div class="article-image onboard">
+              <a href="#" title="{{ article_title }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </a>     
+            </div> 
+          </div>
+          <h2><a href="#">Sample Blog post</a></h2>     
+          {% if section.settings.show-date %}
+          {% assign published_at = article.published_at | date: format: 'month_date_year' %}
+          <p class="posted">{{ 'now' | date: "%a, %b %d, %y" }}</p>
+          {% endif %}
+          <div class="clear"></div>
+          <p class="rte">
+            Sample content for blog post {{ forloop.index }}
+          </p>
+        </li>
+        {% endfor %}
+        
+        
+        {% else %}
+        {% for article in blog.articles limit: 3 %}
+        {% include 'article-loop' %}
+        {% endfor %} 
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</section>
+<div class="clear"></div>
+
+
+{% schema %}
+{
+  "name": "Blog posts",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Blog posts"
+    },
+    {
+      "id": "blog",
+      "type": "blog",
+      "label": "Blog"
+    },
+      {
+        "type": "checkbox",
+        "id": "show-date",
+        "label": "Show published date",
+        "default": true
+      }
+   
+  ],
+  "presets": [
+    {
+      "name": "Blog posts",
+      "category": "Blog",
+      "settings": {
+        "blog": "News"
+      }
+    }
+  ]
+}
+{% endschema %}

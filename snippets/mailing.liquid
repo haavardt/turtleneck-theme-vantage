@@ -1,0 +1,16 @@
+<div id="mc_embed_signup">
+  {% form 'customer' %}
+  {{ form.errors | default_errors }}
+  {% if form.posted_successfully? %}
+  <p class="success">{{ 'password.general.thanks' | t }}</p>
+  {% else %}
+  <input type="hidden" name="contact[tags]" value="prospect, password page">
+  <input type="email" name="contact[email]" id="mce-EMAIL" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}">
+  <input type="submit" id="mc-embedded-subscribe" value="{{ 'general.newsletter_form.submit' | t }}">
+  {% endif %}
+  {% endform %}    
+</div>        
+
+
+
+        

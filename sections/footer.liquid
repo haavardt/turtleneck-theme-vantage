@@ -1,0 +1,109 @@
+<div id="footer" class="footer-section" data-section-id="{{ section.id }}" data-section-type="footer-section">
+  <div class="container row"> 
+    <div id="big-footer" class="desktop-12">      
+      {% case section.blocks.size %}
+      {% when 0 %}
+      {% when 1 %}
+      {% assign column_width = 'desktop-12 tablet-6 mobile-3' %}
+      {% when 2 %}
+      {% assign column_width = 'desktop-6 tablet-6 mobile-3' %}
+      {% when 3 %}
+      {% assign column_width = 'desktop-4 tablet-6 mobile-3' %}
+      {% when 4 %}
+      {% assign column_width = 'desktop-3 tablet-6 mobile-3' %}
+      {% endcase %}      
+      {% for block in section.blocks %}   
+      {% case block.type %}
+      {% when 'menu' %}
+      <div class="{{ column_width }} footer-sect">
+        <h4>{{ block.settings.title }}</h4>
+        <ul {{ block.shopify_attributes }}>
+          {% for link in linklists[block.settings.footer_nav].links %}
+          <li>{{ link.title | link_to: link.url }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% when 'newsletter' %}
+      <div class="{{ column_width }} footer-sect">
+        <h4>{{ block.settings.title }}</h4>
+		{% include 'mailing' %}
+      </div>  
+      {% when 'social' %}      
+       <div id="social-icons" class="{{ column_width }} footer-sect">
+        <h4>{{ block.settings.title }}</h4>
+        {% if settings.facebook_url != blank %}<a href="{{ settings.facebook_url }}"><i class="fa fa-facebook"></i></a>{% endif %}
+        {% if settings.twittername != blank %}<a href="{{ settings.twittername }}"><i class="fa fa-twitter"></i></a>{% endif %}
+        {% if settings.pinterest_url != blank %} <a href="{{ settings.pinterest_url }}"><i class="fa fa-pinterest"></i></a>{% endif %}
+        {% if settings.tumblr_url != blank %} <a href="{{ settings.tumblr_url }}"><i class="fa fa-tumblr"></i></a>{% endif %}
+        {% if settings.flickr_url != blank %} <a href="{{ settings.flickr_url }}"><i class="fa fa-flickr"></i></a>{% endif %}
+        {% if settings.youtube_url != blank %} <a href="{{ settings.youtube_url }}"><i class="fa fa-youtube"></i></a>{% endif %}
+        {% if settings.googleplus_url != blank %} <a href="{{ settings.googleplus_url }}"><i class="fa fa-google-plus"></i></a>{% endif %}
+        {% if settings.vimeo_url != blank %} <a href="{{ settings.vimeo_url }}"><i class="fa fa-vimeo-square"></i></a>{% endif %}
+        {% if settings.linkedin_url != blank %} <a href="{{ settings.linkedin_url }}"><i class="fa fa-linkedin"></i></a>{% endif %}
+        {% if settings.instagram_name != blank %} <a href="//instagram.com/{{ settings.instagram_name }}"><i class="fa fa-instagram"></i></a>{% endif %}
+      </div>
+      {% endcase %}
+      {% endfor %}          
+    </div> 
+    <div class="row">
+      <div id="close" class="desktop-12 mobile-3">
+        <p>{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }} {{ shop.name | link_to: '/' }} • <a href="//www.weareunderground.com" target="_blank" title="Shopify theme">Shopify Theme</a> {{ 'layout.footer.theme_title' | t }} Underground • {{ powered_by_link | replace: '" target', '?ref=undergroundmedia" target' }}</p>
+      </div>
+    </div>      
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Footer",
+	"max_blocks": 4,
+    "settings": [
+
+    ],
+   "blocks":[  
+      {  
+         "type":"menu",
+         "name":"Menu",
+         "settings":[  
+            {
+               "type": "link_list",
+               "id": "footer_nav",
+               "label": "Choose a menu"
+            },
+           {
+            "type": "text",
+            "id": "title",
+            "label": "Menu title",
+            "default": "Menu"
+           }
+         ]
+      },
+      {
+        "type": "newsletter",
+        "name": "Newsletter signup",
+        "limit": 1,
+		"settings":[
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Section title",
+            "default": "Newsletter signup"
+           }
+		]
+	  },
+      {
+        "type": "social",
+        "name": "Social",
+        "limit": 1,
+		"settings":[
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Section title",
+            "default": "Social icons"
+           }
+		]
+	  }
+   ]
+  }
+{% endschema %}
