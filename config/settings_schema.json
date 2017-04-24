@@ -31,6 +31,16 @@
         "label": "Body text",
         "options": [
           {
+            "value": "'NeuzeitSLTStd-Book', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            "label": "Neuzeit Book",
+            "group": "Custom"
+          },
+          {
+            "value": "'NeuzeitSLTStd-BookHeavy', 'NeuzeitSLTStd-Book', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            "label": "Neuzeit Book Heavy",
+            "group": "Custom"
+          },
+          {
             "value": "'Century Gothic', Helvetica, Arial, sans-serif",
             "label": "Century Gothic",
             "group": "Sans-serif"
@@ -169,6 +179,16 @@
         "label": "Headings",
         "options": [
           {
+            "value": "'NeuzeitSLTStd-Book', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            "label": "Neuzeit Book",
+            "group": "Custom"
+          },
+          {
+            "value": "'NeuzeitSLTStd-BookHeavy', 'NeuzeitSLTStd-Book', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            "label": "Neuzeit Book Heavy",
+            "group": "Custom"
+          },
+          {
             "value": "'Century Gothic', Helvetica, Arial, sans-serif",
             "label": "Century Gothic",
             "group": "Sans-serif"
@@ -306,6 +326,16 @@
         "id": "navigation-font",
         "label": "Navigation",
         "options": [
+          {
+            "value": "'NeuzeitSLTStd-Book', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            "label": "Neuzeit Book",
+            "group": "Custom"
+          },
+          {
+            "value": "'NeuzeitSLTStd-BookHeavy', 'NeuzeitSLTStd-Book', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            "label": "Neuzeit Book Heavy",
+            "group": "Custom"
+          },
           {
             "value": "'Century Gothic', Helvetica, Arial, sans-serif",
             "label": "Century Gothic",
