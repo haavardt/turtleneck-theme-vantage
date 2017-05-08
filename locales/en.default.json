@@ -242,7 +242,7 @@
       "new": "New in",
       "sale": "Sale",
       "sold": "Sold Out",
-      "quick_view": "Quick View",
+      "quick_view": "Add to cart",
       "from": "From",
       "view_full": "View Full Details"
     },
@@ -265,6 +265,7 @@
       "collection": "Collection:",
       "product_details": "Product Details",
       "product_more_details": "In Depth",
+      "collection_more_details": "Read more",
       "size_guide": "Size Guide:",
       "delivery": "Delivery:",
       "returns": "Returns:",

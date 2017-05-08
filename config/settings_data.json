@@ -935,11 +935,11 @@
     }
   },
   "current": {
-    "favicon": "",
-    "font": "'Helvetica Neue', Helvetica, Arial, sans-serif",
-    "headings_font": "'Helvetica Neue', Helvetica, Arial, sans-serif",
-    "navigation-font": "'Montserrat', sans-serif",
-    "font-size": "12px",
+    "favicon": "shopify:\/\/shop_images\/favicon.png",
+    "font": "'NeuzeitSLTStd-Book', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    "headings_font": "'NeuzeitSLTStd-Book', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    "navigation-font": "'NeuzeitSLTStd-Book', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    "font-size": "16px",
     "h1-size": "20px",
     "h2-size": "18px",
     "h3-size": "16px",
@@ -989,9 +989,9 @@
     "footer-text-color": "#ffffff",
     "icon-background": "#474747",
     "icon-color": "#fff",
-    "quickview": false,
-    "image-flip": false,
-    "vendor": false,
+    "quickview": true,
+    "image-flip": true,
+    "vendor": true,
     "twittername": "",
     "facebook_url": "",
     "pinterest_url": "",
@@ -1332,7 +1332,7 @@
           "logo-weight": "300",
           "top_bar_message": "",
           "top_bar_size": "12px",
-          "main_nav": "",
+          "main_nav": "main-menu",
           "nav_border_size": "0"
         }
       },
@@ -2220,10 +2220,10 @@
               "title": "Høytrykk by Turtleneck",
               "subheading": "Play music everywhere",
               "button_text": "Pick up good vibrations",
-              "link": "",
-              "caption_horizontal": "left",
-              "caption_vertical": "10%",
-              "slide_text_color": "#8d8b8b",
+              "link": "shopify:\/\/collections\/hoytrykk-by-turtleneck",
+              "caption_horizontal": "center",
+              "caption_vertical": "30%",
+              "slide_text_color": "#ffffff",
               "cta_color": "#ffffff",
               "cta_background": "#000000"
             }
@@ -2235,10 +2235,10 @@
               "title": "Pullover by Turtleneck",
               "subheading": "Your earphones tangle free",
               "button_text": "Untangle now",
-              "link": "",
-              "caption_horizontal": "right",
-              "caption_vertical": "10%",
-              "slide_text_color": "#000000",
+              "link": "shopify:\/\/collections\/frontpage",
+              "caption_horizontal": "left",
+              "caption_vertical": "25%",
+              "slide_text_color": "#ffffff",
               "cta_color": "#ffffff",
               "cta_background": "#000000"
             }
@@ -2252,7 +2252,7 @@
               "button_text": "Charge!",
               "link": "",
               "caption_horizontal": "center",
-              "caption_vertical": "45%",
+              "caption_vertical": "30%",
               "slide_text_color": "#ffffff",
               "cta_color": "#ffffff",
               "cta_background": "#000000"
@@ -2267,11 +2267,11 @@
         "settings": {
           "full-width": true,
           "slider_speed": "5000",
-          "slide-title-size": "24px",
-          "slide-title-weight": "700",
+          "slide-title-size": "30px",
+          "slide-title-weight": "300",
           "caption-size": "16px",
           "cta_size": "16px",
-          "cta_weight": "700"
+          "cta_weight": "300"
         }
       },
       "1490638779520": {
@@ -2282,7 +2282,7 @@
             "settings": {
               "image_width": "25%",
               "image": "shopify:\/\/shop_images\/Flint_-_Popular_products_-_frontpage_8c904a8d-9b16-43e2-8b36-e7b8d00d0115.jpg",
-              "link": "",
+              "link": "shopify:\/\/products\/immortal-black",
               "title": "",
               "hidden_text": "",
               "promo_color": "#000",
@@ -2342,7 +2342,7 @@
         "type": "featured-content",
         "settings": {
           "title": "Popular products",
-          "rich-text": "<p>H&Aring;VARD - Please remove this text :) Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>",
+          "rich-text": "",
           "page": ""
         }
       },
@@ -2350,7 +2350,7 @@
         "type": "featured-content",
         "settings": {
           "title": "Shop",
-          "rich-text": "<p>H&Aring;VARD PLEASE REMOVE THIS TEXT Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>",
+          "rich-text": "",
           "page": ""
         }
       },
@@ -2363,8 +2363,8 @@
               "image_width": "33%",
               "image": "shopify:\/\/shop_images\/Etui_by_Turtleneck_-_Fronpage_3004d751-1b54-47dc-938a-0de6d2f30230.jpeg",
               "link": "shopify:\/\/collections\/etui-by-turtleneck",
-              "title": "",
-              "hidden_text": "",
+              "title": "Etui by Turtleneck",
+              "hidden_text": "We put the Ace in briefcase",
               "promo_color": "#000",
               "hidden_color": "#000"
             }
@@ -2375,8 +2375,8 @@
               "image_width": "66%",
               "image": "shopify:\/\/shop_images\/Pullover_by_Turtleneck_-_frontpage_c76d1204-22f9-47d2-9df2-b4e644cb3361.jpg",
               "link": "shopify:\/\/collections\/frontpage",
-              "title": "",
-              "hidden_text": "",
+              "title": "Pullover by Turtleneck",
+              "hidden_text": "Your earphones, tangle free",
               "promo_color": "#000",
               "hidden_color": "#000"
             }
@@ -2387,8 +2387,8 @@
               "image_width": "66%",
               "image": "shopify:\/\/shop_images\/Hoytrykk_by_Turtleneck_-_frontpage_5cddec2d-efc3-4618-a045-4e69caf5e65f.jpg",
               "link": "shopify:\/\/collections\/hoytrykk-by-turtleneck",
-              "title": "",
-              "hidden_text": "",
+              "title": "Høytrykk by Turtleneck",
+              "hidden_text": "Pick up good vibrations",
               "promo_color": "#000",
               "hidden_color": "#000"
             }
@@ -2399,8 +2399,20 @@
               "image_width": "33%",
               "image": "shopify:\/\/shop_images\/Flint_by_Turtleneck-_frontpage_f8d62777-bf6e-4d79-9d0b-aa8fea55157a.jpg",
               "link": "",
-              "title": "",
-              "hidden_text": "",
+              "title": "Flint by Turtleneck",
+              "hidden_text": "Power to the people",
+              "promo_color": "#000",
+              "hidden_color": "#000"
+            }
+          },
+          "1493318821971": {
+            "type": "image",
+            "settings": {
+              "image_width": "100%",
+              "image": "",
+              "link": "",
+              "title": "AirThread by Turtleneck",
+              "hidden_text": "The Wire in Wireless",
               "promo_color": "#000",
               "hidden_color": "#000"
             }
@@ -2410,7 +2422,8 @@
           "1490639058690-0",
           "1490639058690-1",
           "1490639058690-2",
-          "1490639165869"
+          "1490639165869",
+          "1493318821971"
         ],
         "settings": {
           "full_width": false,
@@ -2473,7 +2486,7 @@
         "type": "featured-content",
         "settings": {
           "title": "As seen in",
-          "rich-text": "<p>H&aring;vard please remove this text. Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>",
+          "rich-text": "",
           "page": ""
         }
       },
@@ -2545,8 +2558,17 @@
         "type": "featured-content",
         "settings": {
           "title": "",
-          "rich-text": "<p>We can&rsquo;t say that we solve world problems, but we do solve people&rsquo;s \u0003everyday problems. As one of the first fashion-tech accessory brands in Scandinavia, we are passionate about making your everyday \u0003hassles just a little less tedious. \u0003 Check out our store and find some awesome technology accessory \u0003products you probably haven&rsquo;t seen before.<\/p>",
+          "rich-text": "<p>We can&rsquo;t say that we solve world problems, but we do solve people&rsquo;s \u0003everyday problems. As one of the first fashion-tech accessory brands in Scandinavia, we are passionate about making your everyday \u0003hassles just a little less tedious. \u0003<\/p>\r\n<p>Check out our store and find some awesome technology accessory \u0003products you probably haven&rsquo;t seen before.<\/p>",
           "page": ""
+        }
+      },
+      "1493801778930": {
+        "type": "featured-products",
+        "settings": {
+          "title": "Popular products",
+          "collection": "popular-products",
+          "grid": "4",
+          "limit": "4"
         }
       }
     },
@@ -2559,7 +2581,8 @@
       "1491383273651",
       "1491383114229",
       "1491384355854",
-      "1491384742117"
+      "1491384742117",
+      "1493801778930"
     ]
   }
 }

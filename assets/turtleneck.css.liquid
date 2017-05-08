@@ -1,7 +1,84 @@
 /* # General overrides
 ================================================== */
+.price {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
+.collection-index {
+    position: relative;
+    margin-bottom: 0;
+}
 
+.collection-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.collection-image img {
+    max-height: 400px;
+    max-width: none;
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    transition: all .4s ease-in-out;
+}
+.collection-index:hover .collection-image img {
+    transform: scale(1.06);
+}
+
+.collection-info {
+    color: {{ settings.overlay_text }};
+    position: absolute;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-direction: column;
+}
+
+.collection-info h3 {
+    color: {{ settings.overlay_text }};
+}
+
+.collection-info a {
+    width: auto;
+}
+
+.collection-info .button {
+    color: {{ settings.overlay_text }};
+    border-color: {{ settings.overlay_text }};
+}
+
+.color-indicator {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 1px solid {{ settings.overlay_text }};
+}
+
+.color-variants {
+    margin-bottom: 10px;
+}
+
+.homepage-featured-in {
+    text-align: center;
+    max-height: 80px;
+    min-height: 80px;
+}
+.homepage-featured-in img {
+    max-height: 80px;
+}
+
+.gridlock .row [class*="desktop-"].center {
+    float: none;
+}
 /* #Media Queries
 ================================================== */
 

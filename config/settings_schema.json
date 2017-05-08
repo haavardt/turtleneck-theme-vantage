@@ -1033,9 +1033,27 @@
       },
       {
         "type": "color",
+        "id": "button_border_color",
+        "label": "Button borders",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "button_border_hover",
+        "label": "Button hover borders",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
         "id": "button_hover_text",
         "label": "Button hover text",
         "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "overlay_text",
+        "label": "Overlay text",
+        "default": "#FFFFFF"
       },
       {
         "type": "header",

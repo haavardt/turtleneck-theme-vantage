@@ -25,7 +25,7 @@
     {% endcase %} 
     
     {%- assign img_url = block.settings.image | img_url: image_size -%}
-    <div class="homepage-promo {% if section.settings.full_width and block.settings[image_size] == '100%' %} centered {% endif %} {{ image_width }} mobile-3 promo-{{ block.id }}" {{ block.shopify_attributes }}>
+    <div class="homepage-promo {% if section.settings.full_width and block.settings[image_size] == '100%' %} centered {% endif %} {{ image_width }} mobile-half promo-{{ block.id }}" {{ block.shopify_attributes }}>
       {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
         {% if block.settings.image != blank %}
         <img src="{{ img_url }}">

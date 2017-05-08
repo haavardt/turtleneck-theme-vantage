@@ -1,17 +1,26 @@
-<div class="collection-index {{ col_per_row }} mobile-half" data-alpha="{{ collection.title }}">  
+<div class="collection-index {{ col_per_row }} mobile-3" data-alpha="{{ collection.title }}">
   <div class="collection-image">
-    <a href="{{ collection.url }}" title="{{ collection_title }}">
+
       {% if collection.image %}
       {{ collection.image.src | collection_img_url: '600x' | img_tag: collection_title }}
       {% else %}
       {{ collection.products.first.featured_image | product_img_url: '600x' | img_tag: collection_title }}
       {% endif %}
-    </a>     
-  </div>
 
+  </div>
   <div class="collection-info">
-    <a href="{{ collection.url }}" title="{{ collection.title }}">
-      <h3>{{ collection.title }}</h3>
+    <h3>{{ collection.title }}</h3>
+    <p class="tagline">{{ collection-tagline }}</p>
+
+    <div class="color-variants">
+      {% for color in colors %}
+        <span class="color-indicator" style="background-color: {{ color }}"></span>
+      {%  endfor %}
+    </div>
+
+    <a href="{{ collection.url }}" title="{{ collection.title }}" class="button">
+        {{ 'products.product.collection_more_details' | t }}
     </a>
   </div>
+
 </div>

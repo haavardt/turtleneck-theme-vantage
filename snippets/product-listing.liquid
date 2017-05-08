@@ -25,9 +25,6 @@
       </div>
     </a>
   </div>
-  {% if settings.quickview %}
-  <a class="fancybox.ajax product-modal button" href="{{ product.url }}?view=quick">{{ 'products.general.quick_view' | t }}</a>  
-  {% endif %}
 </div>  
 
 <div class="product-info"> 
@@ -46,5 +43,8 @@
       <div class="prod-price">{% if product.price_varies %} {{ 'products.general.from' | t }} {{ product.price_min | money }} - {{ product.price_max | money }} {% else %}{{ product.price | money }}{% endif %}</div>
       {% endif %}	
     </div>
+      {% if settings.quickview %}
+        <a class="fancybox.ajax product-modal button" href="{{ product.url }}?view=quick">{{ 'products.general.quick_view' | t }}</a>
+      {% endif %}
   </div>
 </div>
