@@ -1,10 +1,10 @@
-<div class="collection-index {{ col_per_row }} mobile-3" data-alpha="{{ collection.title }}">
+<div class="collection-index {{ width }} mobile-3" data-alpha="{{ collection.title }}">
   <div class="collection-image">
 
       {% if collection.image %}
-      {{ collection.image.src | collection_img_url: '600x' | img_tag: collection_title }}
+      {{ collection.image.src | collection_img_url: image_size | img_tag: collection_title }}
       {% else %}
-      {{ collection.products.first.featured_image | product_img_url: '600x' | img_tag: collection_title }}
+      {{ collection.products.first.featured_image | product_img_url: image_size | img_tag: collection_title }}
       {% endif %}
 
   </div>

@@ -23,7 +23,7 @@
             {{ placeholder | placeholder_svg_tag: 'placeholder-svg' }}
             {% endif %}
 
-            <div class="flex-caption slide-{{ block.id }}">
+            <div class="flex-caption overlay slide-{{ block.id }}">
               <div class="caption-inners">
                 {% if block.settings.title != 'blank' %}
                 <h2 class="slide-title">{{ block.settings.title }}</h2>
@@ -33,7 +33,7 @@
                 {% endif %}
                 {% if block.settings_link != 'blank' %}
                 <div class="cta">
-                  <a href="{{ block.settings.link }}">{{ block.settings.button_text }}</a>
+                  <a class="button" href="{{ block.settings.link }}">{{ block.settings.button_text }}</a>
                 </div>
                 {% endif %}
               </div>

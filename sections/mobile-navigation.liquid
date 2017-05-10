@@ -1,9 +1,11 @@
 <nav class="shifter-navigation no-fouc" data-section-id="{{ section.id }}" data-section-type="mobile-navigation">
+    {% if section.settings.show-search %}
   <div class="search">
     <form action="/search" method="get">
       <input type="text" name="q" id="q" placeholder="{{ 'general.search.placeholder' | t }}" />
     </form>           
   </div>
+    {% endif %}
    
   <ul id="accordion">    
     {% for link in linklists[section.settings.main_nav].links %}
@@ -44,6 +46,11 @@
 	  {
         "type": "header",
         "content": "Navigation"
+      },
+      {
+      "type": "checkbox",
+      "id": "show-search",
+      "label":"Show search"
       },
       {
         "type": "link_list",

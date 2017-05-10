@@ -16,7 +16,6 @@
       {% case block.type %}
       {% when 'menu' %}
       <div class="{{ column_width }} footer-sect">
-        <h4>{{ block.settings.title }}</h4>
         <ul {{ block.shopify_attributes }}>
           {% for link in linklists[block.settings.footer_nav].links %}
           <li>{{ link.title | link_to: link.url }}</li>
@@ -30,7 +29,6 @@
       </div>  
       {% when 'social' %}      
        <div id="social-icons" class="{{ column_width }} footer-sect">
-        <h4>{{ block.settings.title }}</h4>
         {% if settings.facebook_url != blank %}<a href="{{ settings.facebook_url }}"><i class="fa fa-facebook"></i></a>{% endif %}
         {% if settings.twittername != blank %}<a href="{{ settings.twittername }}"><i class="fa fa-twitter"></i></a>{% endif %}
         {% if settings.pinterest_url != blank %} <a href="{{ settings.pinterest_url }}"><i class="fa fa-pinterest"></i></a>{% endif %}
@@ -41,15 +39,35 @@
         {% if settings.vimeo_url != blank %} <a href="{{ settings.vimeo_url }}"><i class="fa fa-vimeo-square"></i></a>{% endif %}
         {% if settings.linkedin_url != blank %} <a href="{{ settings.linkedin_url }}"><i class="fa fa-linkedin"></i></a>{% endif %}
         {% if settings.instagram_name != blank %} <a href="//instagram.com/{{ settings.instagram_name }}"><i class="fa fa-instagram"></i></a>{% endif %}
+       <div id="powered-by">
+           {% if block.settings.logo1 != nil or block.settings.logo2 != nil %}
+               <h4>
+                {{ 'layout.footer.powered' | t }}
+               </h4>
+               {% if block.settings.logo1 != nil %}
+                   {% assign width1 = block.settings.logo1_width | append: 'x' %}
+                   <img src="{{ block.settings.logo1 | img_url: width1 }}" srcset="{{ block.settings.logo1 | img_url: width1, scale: 2}} 2x">
+               {% endif %}
+
+               {% if block.settings.logo2 != nil %}
+                   {% assign width2 = block.settings.logo2_width | append: 'x' %}
+                   <img src="{{ block.settings.logo2 | img_url: width2 }}" srcset="{{ block.settings.logo2 | img_url: width2, scale: 2}} 2x">
+               {% endif %}
+
+           {% endif %}
+       </div>
       </div>
+
+      {% when 'image' %}
+          <div class="{{ column_width }} footer-sect">
+              <img src="{{ block.settings.image | img_url: '140x' }}" srcset="{{ block.settings.image | img_url: '140x', scale: 2}} 2x" alt="Logo" />
+              <p class="footer-logo-text">
+                  {{ block.settings.logo_text }}
+              </p>
+          </div>
       {% endcase %}
       {% endfor %}          
-    </div> 
-    <div class="row">
-      <div id="close" class="desktop-12 mobile-3">
-        <p>{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }} {{ shop.name | link_to: '/' }} • <a href="//www.weareunderground.com" target="_blank" title="Shopify theme">Shopify Theme</a> {{ 'layout.footer.theme_title' | t }} Underground • {{ powered_by_link | replace: '" target', '?ref=undergroundmedia" target' }}</p>
-      </div>
-    </div>      
+    </div>
   </div>
 </div>
 
@@ -69,13 +87,7 @@
                "type": "link_list",
                "id": "footer_nav",
                "label": "Choose a menu"
-            },
-           {
-            "type": "text",
-            "id": "title",
-            "label": "Menu title",
-            "default": "Menu"
-           }
+            }
          ]
       },
       {
@@ -93,17 +105,48 @@
 	  },
       {
         "type": "social",
-        "name": "Social",
+        "name": "Social & Powered by",
         "limit": 1,
-		"settings":[
-          {
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "logo1",
+                "label": "Logo"
+            },
+            {
             "type": "text",
-            "id": "title",
-            "label": "Section title",
-            "default": "Social icons"
-           }
-		]
-	  }
+            "id": "logo1_width",
+            "label": "Logo width (px)"
+            },
+            {
+                "type": "image_picker",
+                "id": "logo2",
+                "label": "Logo"
+            },
+            {
+            "type": "text",
+            "id": "logo2_width",
+            "label": "Logo width (px)"
+            }
+        ]
+	  },
+        {
+            "type": "image",
+            "name": "Logo",
+            "limit": 1,
+            "settings": [
+                {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+                },
+                {
+                "type": "text",
+                "id": "logo_text",
+                "label": "Logo text"
+                }
+            ]
+        }
    ]
   }
 {% endschema %}

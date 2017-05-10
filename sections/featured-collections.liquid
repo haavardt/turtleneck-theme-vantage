@@ -11,20 +11,28 @@
       {% for block in section.blocks %}
       {%- assign index = forloop.index -%}
 
-      {% case section.settings.collections-per-row %}
-      {% when '6' %}
-      {%- assign col_per_row = 'desktop-2 tablet-2' -%}
-      {% when '4' %}
-      {%- assign col_per_row = 'desktop-3 tablet-2' -%}
-      {% when '3' %}
-      {%- assign col_per_row = 'desktop-4 tablet-2' -%}
-      {% when '2' %}
-          {% if index == 2 or index == 3 or index == 6 or index == 7 %}
-          {%- assign col_per_row = 'desktop-8 tablet-3' -%}
-          {% else %}
-          {%- assign col_per_row = 'desktop-4 tablet-3' -%}
-          {% endif %}
+
+      {% case block.settings.width %}
+      {% when '25%' %}
+      {%- assign image_size = '500x' -%}
+      {%- assign width = 'desktop-3 tablet-fourth' -%}
+      {% when '33%' %}
+      {%- assign image_size = '500x' -%}
+      {%- assign width = 'desktop-4 tablet-2' -%}
+      {% when '50%' %}
+      {%- assign image_size = '800x' -%}
+      {%- assign width = 'desktop-6 tablet-3' -%}
+      {% when '66%' %}
+      {%- assign image_size = '1200x' -%}
+      {%- assign width = 'desktop-8 tablet-two-thirds' -%}
+      {% when '75%' %}
+      {%- assign image_size = '1200x' -%}
+      {%- assign width = 'desktop-9 tablet-three-quarter' -%}
+      {% when '100%' %}
+      {%- assign image_size = '1920x' -%}
+      {%- assign width = 'desktop-12 tablet-6 mobile-3' -%}
       {% endcase %}
+
       {%- assign collection = collections[block.settings.collection] -%}
       {%- assign collection-tagline = block.settings.collection-tagline -%}
       {% capture colorlist %}{% for i in (1..10) %}{% assign colorindex = 'color' | append: i %}{{ block.settings[colorindex] }}^{% endfor %}{% endcapture %}
@@ -45,38 +53,13 @@
 {% schema %}
 {
   "name": "Collection list",
-  "max_blocks": 6,
   "settings": [
     {
       "type": "text",
       "id": "title",
       "label": "Heading",
       "default": "Featured collections"
-    },
-	{
-        "type": "select",
-        "id": "collections-per-row",
-        "label": "Collections per row",
-		"default": "3",
-        "options": [
-          {
-            "value": "6",
-            "label": "6"
-          },
-          {
-            "value": "4",
-            "label": "4"
-          },
-          {
-            "value": "3",
-            "label": "3"
-          },
-          {
-            "value": "2",
-            "label": "2"
-          }
-        ]
-      }
+    }
   ],
   "blocks": [
     {
@@ -92,6 +75,38 @@
           "label": "Tagline",
           "id": "collection-tagline",
           "type": "text"
+        },
+        {
+          "label": "Width",
+          "type": "select",
+          "id": "width",
+          "default": "33%",
+          "options": [
+            {
+              "value":"25%",
+              "label":"25%"
+            },
+            {
+              "value":"33%",
+              "label":"33%"
+            },
+            {
+              "value":"50%",
+              "label":"50%"
+            },
+            {
+              "value":"66%",
+              "label":"66%"
+            },
+            {
+              "value":"75%",
+              "label":"75%"
+            },
+            {
+              "value":"100%",
+              "label":"100%"
+            }
+          ]
         },
         {
           "label": "Variant color 1",

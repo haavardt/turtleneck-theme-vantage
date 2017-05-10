@@ -1,6 +1,10 @@
 <section class="homepage-section featured-content" data-section-id="{{ section.id }}" data-section-type="featured-content">
 
-  <article class="row">
+  {% if section.settings.full-width %}
+    <article>
+  {% else %}
+    <article class="row">
+  {% endif %}
     <h1 class="section-title clearfix desktop-12">{{ section.settings.title | escape }}</h1>
     
     <div class="clear"></div>
@@ -31,6 +35,11 @@
       "id": "title",
       "label": "Heading",
       "default": "Welcome"
+    },
+    {
+    "type": "checkbox",
+    "id": "full-width",
+    "label":"Full width"
     },
       {
         "type": "richtext",

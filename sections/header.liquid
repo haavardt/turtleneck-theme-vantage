@@ -1,11 +1,14 @@
 <div class="header-section" data-section-id="{{ section.id }}" data-section-type="header-section">
+  {% if section.settings.top_bar_message != '' %}
   <div id="top-bar">
     <div class="row">
       <div class="desktop-12 tablet-6 mobile-3">
         {{ section.settings.top_bar_message }}
       </div>
     </div>
-  </div>   
+  </div>
+  {% endif %}
+
   <div id="mobile-header">
     <div class="row">
       <ul id="mobile-menu" class="mobile-3">
@@ -38,49 +41,19 @@
     <div class="gridlock-fluid">
       <div class="row">
         {% endif %}
-        <div id="header" class="row">	
-          <div id="search" class="desktop-3 tablet-2 mobile-hide">
-            <form action="/search" method="get">
-              <i class="fa fa-search"></i>
-              <input type="text" name="q" id="q" class="search-field" placeholder="{{ 'general.search.placeholder' | t }}" />
-            </form>
-          </div>
-          <div id="logo" class="desktop-6 tablet-2 mobile-3">
-            {% if section.settings.logo != blank %}
-            {%- assign image_size = '600x' -%}
-            <a href="/">
-              <img src="{{ section.settings.logo | img_url: image_size }}" itemprop="logo">        
-            </a>
-            {% else %}
-            <a href="/">{{ shop.name }}</a>
-            {% endif %}  
-          </div> 
-          <ul id="cart" class="desktop-3 tablet-2 mobile-hide">
-            {% if shop.customer_accounts_enabled %}
+        <div class="row navigation" id="navigation-wrapper">
 
-            {% if customer  %}
-            <li>
-              <a href="/account/login">{{ 'customer.account.title' | t }}</a>
-            </li>
-            <li>
-              <a href="/account/logout">{{ 'customer.account.logout' | t }}</a>
-            </li>
-            {% else %}
-            <li>
-              <a href="/account/login">{{ 'customer.account.title' | t }}</a>
-            </li>
-            {% endif %}
-
-            {% endif %}
-            <li>
-              <a href="/cart">{{ 'cart.general.title' | t }}: (<span class="cart-count">{{ cart.item_count }}</span>)</a>
-            </li>
-          </ul>   
-        </div>  <!-- End Header -->
-
-        <div class="row" id="navigation-wrapper">
-          <div class="navigation desktop-12">
-            <ul class="nav">
+            <div id="logo" class="desktop-3 tablet-2 mobile-3">
+                {% if section.settings.logo != blank %}
+                    {%- assign image_size = '600x' -%}
+                  <a href="/">
+                    <img src="{{ section.settings.logo | img_url: image_size }}" itemprop="logo">
+                  </a>
+                {% else %}
+                  <a href="/">{{ shop.name }}</a>
+                {% endif %}
+            </div>
+            <ul class="nav desktop-6 tablet-3 mobile-2">
               {% for link in linklists[section.settings.main_nav ].links %}
               {% capture link_handle %}{{ link.title | handle }}{% endcapture %}
               {% capture linkurl %}{{ link.url }}{% endcapture %} 
@@ -107,10 +80,39 @@
               </li>
               {% else %}
               <li>{{ link.title | link_to: link.url }}</li>
-              {% endif %}     
+              {% endif %}
               {% endfor %}
+              {% if section.settings.show-search %}
+                <li id="search" class="mobile-hide">
+                  <form action="/search" method="get">
+                    <i class="fa fa-search"></i>
+                    <input type="text" name="q" id="q" class="search-field" placeholder="{{ 'general.search.placeholder' | t }}" />
+                  </form>
+                </li>
+              {% endif %}
+
             </ul>
-          </div> 
+            <ul id="cart" class="desktop-3 tablet-1 mobile-1">
+                {% if shop.customer_accounts_enabled %}
+
+                    {% if customer  %}
+                      <li>
+                        <a href="/account/login">{{ 'customer.account.title' | t }}</a>
+                      </li>
+                      <li>
+                        <a href="/account/logout">{{ 'customer.account.logout' | t }}</a>
+                      </li>
+                    {% else %}
+                      <li>
+                        <a href="/account/login">{{ 'customer.account.title' | t }}</a>
+                      </li>
+                    {% endif %}
+
+                {% endif %}
+              <li>
+                <a href="/cart"><i class="fa fa-shopping-cart"></i> <span class="cart-count">{{ cart.item_count }}</span></a>
+              </li>
+            </ul>
         </div>
         {% if section.settings.full-width-header %}
       </div>
@@ -159,6 +161,11 @@
         "type": "checkbox",
         "id": "full-width-header",
 		"label":"Full width header"
+      },
+      {
+      "type": "checkbox",
+      "id": "show-search",
+      "label":"Show search"
       },
 		{
         "type": "header",
