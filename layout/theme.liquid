@@ -69,7 +69,13 @@
     {% endif %}
     {% endif %}
       
+      {% if template contains 'index' or template contains 'blog' or template contains 'list-collections' %}
       {{ content_for_layout }}
+      {% else %}
+      <div id="content" class="row">
+        {{ content_for_layout }}
+      </div>
+      {% endif %}
 
       <div class="clear"></div>   
     </div> <!-- End wrapper -->
