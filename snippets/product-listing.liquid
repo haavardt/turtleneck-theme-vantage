@@ -14,12 +14,19 @@
   <div class="so icn">{{ 'products.general.sold' | t }}</div>
   {% endif %}    
   <div class="prod-image">
+      {% assign image_width = '500x' %}
+      {% for tag in product.tags %}
+          {% if tag == 'half' or 'full' %}
+              {% assign image_width = '1000x' %}
+          {% endif %}
+      {% endfor %}
+
     <a href="{{ product.url | within: collection }}" title="{{ product.title | escape }}">
       <div class="reveal">
-        <img src="{{ product.featured_image.src | product_img_url: '500x' }}" alt="{{ product.featured_image.alt | escape }}" />
+        <img src="{{ product.featured_image.src | product_img_url: image_width }}" alt="{{ product.featured_image.alt | escape }}" />
         {% if product.images.size > 1 and settings.image-flip %}
         <div class="hidden">
-          <img src="{{ product.images[1] | product_img_url: '500x' }}" alt="{{ product.images[1].alt | escape }}" />
+          <img src="{{ product.images[1] | product_img_url: image_width }}" alt="{{ product.images[1].alt | escape }}" />
         </div>
         {% endif %}
       </div>
@@ -29,12 +36,12 @@
 
 <div class="product-info"> 
   <div class="product-info-inner">
-    {% if settings.vendor %}
-    <span class="product-vendor">{{ product.vendor }}</span>
-    {% endif %}
-    <a href="{{ product.url | within: collection }}"> 
+    <a href="{{ product.url | within: collection }}">
       <span class="product-title">{{ product.title }}</span>
-    </a>        
+    </a>
+    {% if settings.vendor %}
+      <span class="product-vendor">{{ product.vendor }}</span>
+    {% endif %}
     <div class="price">
       {% if product.price < product.compare_at_price %}
       <div class="onsale">{{ product.price | money }}</div>

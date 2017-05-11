@@ -21,12 +21,36 @@
     {% endif %}
 
     <div class="product-loop{% if section.blocks.size > 0 %} desktop-10 tablet-5 mobile-3{% endif %}">
-      {% for product in collection.products %}
       {% assign products-per-row = section.settings.products-per-row %}
-  	  <div class="product-index {% if products-per-row == "6" %}desktop-2{% cycle ' first', '', '', '', '', ' last' %}{% elsif products-per-row == "4" %}desktop-3{% cycle ' first', '', '', ' last' %}{% elsif products-per-row == "3" %}desktop-4{% cycle ' first', '', ' last' %}{% elsif products-per-row == "2" %}desktop-6{% cycle ' first', ' last' %}{% endif %} tablet-half mobile-half" data-alpha="{{ product.title }}" data-price="{{ product.price }}">     
-        {% include 'product-listing' %}
+        {% for product in collection.products %}
+
+            {% if products-per-row == "6" %}
+                {% assign columnclass = 'desktop-2 tablet-half mobile-half' %}
+                {% elsif products-per-row == "4" %}
+                {% assign columnclass = 'desktop-3 tablet-half mobile-half' %}
+                {% elsif products-per-row == "3" %}
+                {% assign columnclass = 'desktop-4 tablet-half mobile-half' %}
+                {% elsif products-per-row == "2" %}
+                {% assign columnclass = 'desktop-6 tablet-half mobile-half' %}
+            {% endif %}
+
+          {% for tag in product.tags %}
+              {% case tag %}
+                {% when 'fourth' %}
+                  {% assign columnclass = 'desktop-fourth tablet-half mobile-half' %}
+                {% when 'third' %}
+                  {% assign columnclass = 'desktop-third tablet-half mobile-full' %}
+                {% when 'half' %}
+                  {% assign columnclass = 'desktop-half tablet-half mobile-full' %}
+                {% when 'full' %}
+                  {% assign columnclass = 'desktop-full tablet-full mobile-full' %}
+              {% endcase %}
+          {% endfor %}
+
+          <div class="product-index {{ columnclass }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">
+            {% include 'product-listing' %}
       </div>
-      {% endfor %} 
+      {% endfor %}
     </div>
   </div>
   <div class="clear"></div>
