@@ -1,7 +1,7 @@
 <div class="product-template" data-section-id="{{ section.id }}" data-section-type="product-section" itemscope itemtype="http://schema.org/Product" id="product-{{ product.id }}" class="product-page">
     <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
     <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
-    <div id="product-images" class="desktop-5 desktop-push-1 tablet-3 mobile-3">
+    <div id="product-images" class="desktop-6 tablet-3 mobile-3">
       <div class="slide-gallery">
         <ul class="slides">
           {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}

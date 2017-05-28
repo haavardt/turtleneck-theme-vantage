@@ -127,12 +127,8 @@
 <style>
   #top-bar, #top-bar p { font-size: {{ section.settings.top_bar_size }}; }
 
+  #header-wrapper, #header-wrapper ul.nav { line-height: {{ section.settings.nav_line_height }}px; }
   
-  #logo a { 
-    font-size: {{ section.settings.logo-size }}; 
-    text-transform: {{ section.settings.logo-transform }}; 
-    font-weight: {{ section.settings.logo-weight }}; 
-  }
   @media screen and ( min-width: 740px ) {
     #logo img { max-width: {{ section.settings.logo_max_width }}px; }
   }
@@ -182,100 +178,6 @@
       "label": "Custom logo width (in pixels)",
       "default": "100"
       },
-       {
-        "type": "select",
-        "id": "logo-size",
-        "label": "Size",
-        "options": [
-         {
-            "value": "12px",
-            "label": "12px"
-          },
-          {
-            "value": "14px",
-            "label": "14px"
-          },
-          {
-            "value": "16px",
-            "label": "16px"
-          },
-          {
-            "value": "18px",
-            "label": "18px"
-          },
-          {
-            "value": "20px",
-            "label": "20px"
-          },
-          {
-            "value": "22px",
-            "label": "22px"
-          },
-          {
-            "value": "24px",
-            "label": "24px"
-          },
-          {
-            "value": "26px",
-            "label": "26px"
-          },
-          {
-            "value": "28px",
-            "label": "28px"
-          },
-          {
-            "value": "30px",
-            "label": "30px"
-          },
-          {
-            "value": "32px",
-            "label": "32px"
-          },
-          {
-            "value": "34px",
-            "label": "34px"
-          },
-          {
-            "value": "36px",
-            "label": "36px"
-		  }
-        ]
-      },
-      {
-        "type": "select",
-        "id": "logo-transform",
-        "label": "Case",
-        "options": [
-          {
-            "value": "uppercase",
-            "label": "Uppercase"
-          },
-          {
-            "value": "none",
-            "label": "Normal"
-          }
-        ]
-      },
-      {
-        "type": "select",
-        "id": "logo-weight",
-        "label": "Weight",
-        "options": [
-          {
-            "value": "400",
-            "label": "Normal"
-          },
-          {
-            "value": "300",
-            "label": "Light"
-          },
-          {
-            "value": "700",
-            "label": "Bold"
-          }
-        ]
-      },
-
       {
         "type": "header",
         "content": "Promotional text"
@@ -328,6 +230,12 @@
         "type": "link_list",
         "id": "main_nav",
         "label": "Choose main menu"
+      },
+      {
+      "type": "text",
+      "id": "nav_line_height",
+      "label": "Custom line height",
+      "default": "75"
       },
       {
         "type": "select",

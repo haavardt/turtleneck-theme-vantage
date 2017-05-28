@@ -3,9 +3,9 @@
 {% paginate collection.products by number %}
   <div id="collection-page">
     
-    <div class="collection-description desktop-12 tablet-6 mobile-3">
+    <div class="collection-description desktop-8 desktop-push-2 tablet-4 tablet-push-1 mobile-3">
       <h1>{{ collection.title }}</h1>
-      <div class="rte">{{ collection.description }}</div>
+      <div class="rte">{{ collection.description | split: ":products:" | first }}</div>
     </div>
 
     <div class="clear"></div>
@@ -22,40 +22,70 @@
 
     <div class="product-loop{% if section.blocks.size > 0 %} desktop-10 tablet-5 mobile-3{% endif %}">
       {% assign products-per-row = section.settings.products-per-row %}
-        {% for product in collection.products %}
+        {% if products-per-row == "6" %}
+            {% assign columnclass = 'desktop-2 tablet-half mobile-half' %}
+            {% elsif products-per-row == "4" %}
+            {% assign columnclass = 'desktop-3 tablet-half mobile-half' %}
+            {% elsif products-per-row == "3" %}
+            {% assign columnclass = 'desktop-4 tablet-half mobile-half' %}
+            {% elsif products-per-row == "2" %}
+            {% assign columnclass = 'desktop-6 tablet-half mobile-half' %}
+        {% endif %}
 
-            {% if products-per-row == "6" %}
-                {% assign columnclass = 'desktop-2 tablet-half mobile-half' %}
-                {% elsif products-per-row == "4" %}
-                {% assign columnclass = 'desktop-3 tablet-half mobile-half' %}
-                {% elsif products-per-row == "3" %}
-                {% assign columnclass = 'desktop-4 tablet-half mobile-half' %}
-                {% elsif products-per-row == "2" %}
-                {% assign columnclass = 'desktop-6 tablet-half mobile-half' %}
+        {% for i in (1..3) %}
+            {% capture productgroup %}
+                {% for product in collection.products %}
+                    {% for tag in product.tags %}
+                      {% case tag %}
+                        {% when 'fourth' %}
+                          {% assign columnclass = 'desktop-fourth tablet-half mobile-half' %}
+                        {% when 'third' %}
+                          {% assign columnclass = 'desktop-third tablet-half mobile-full' %}
+                        {% when 'half' %}
+                          {% assign columnclass = 'desktop-half tablet-half mobile-full' %}
+                        {% when 'full' %}
+                          {% assign columnclass = 'desktop-full tablet-full mobile-full' %}
+                      {% endcase %}
+                    {% endfor %}
+
+                    {% if i == 1 and product.tags contains section.settings.group-1-tag or product.tags contains section.settings.group-2-tag %}
+                    {% elsif i == 2 and product.tags contains section.settings.group-1-tag %}
+                        <div class="product-index {{ columnclass }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">
+                            {% include 'product-listing' %}
+                        </div>
+                    {% elsif i == 3 and product.tags contains section.settings.group-2-tag %}
+                        <div class="product-index {{ columnclass }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">
+                            {% include 'product-listing' %}
+                        </div>
+                    {% elsif i == 1 %}
+                      <div class="product-index {{ columnclass }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">
+                        {% include 'product-listing' %}
+                      </div>
+                    {% endif %}
+
+                {% endfor %}
+            {% endcapture %}
+            {%  if i > 1 and productgroup contains 'product-index' %}
+                <div class="desktop-full mobile-full tablet-full center subtitle">
+                    {% if i == 2 and section.settings.group-1-tag != '' %}
+                        <h2>{{ section.settings.group-1-title }}</h2>
+                        {% elsif i == 3 and section.settings.group-2-tag != '' %}
+                        <h2>{{ section.settings.group-2-title }}</h2>
+                    {% endif %}
+                </div>
             {% endif %}
-
-          {% for tag in product.tags %}
-              {% case tag %}
-                {% when 'fourth' %}
-                  {% assign columnclass = 'desktop-fourth tablet-half mobile-half' %}
-                {% when 'third' %}
-                  {% assign columnclass = 'desktop-third tablet-half mobile-full' %}
-                {% when 'half' %}
-                  {% assign columnclass = 'desktop-half tablet-half mobile-full' %}
-                {% when 'full' %}
-                  {% assign columnclass = 'desktop-full tablet-full mobile-full' %}
-              {% endcase %}
-          {% endfor %}
-
-          <div class="product-index {{ columnclass }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">
-            {% include 'product-listing' %}
-      </div>
-      {% endfor %}
+            {{ productgroup }}
+        {% endfor %}
     </div>
   </div>
   <div class="clear"></div>
   {% include 'pagination' %}
   {% endpaginate %}
+    {% if collection.description contains ':products:' %}
+    <div class="center desktop-12 tablet-6 mobile-3">
+        <div class="rte">{{ collection.description | split: ":products:" | last }}</div>
+    </div>
+    {% endif %}
 </div>
 
 
@@ -114,6 +144,26 @@
         "label": "Show sort by",
         "default": true
       },
+    {
+        "type": "text",
+        "id": "group-1-tag",
+        "label": "Group by tag 1"
+    },
+    {
+        "type": "text",
+        "id": "group-1-title",
+        "label": "Group title 1"
+    },
+    {
+        "type": "text",
+        "id": "group-2-tag",
+        "label": "Group by tag 2"
+    },
+    {
+        "type": "text",
+        "id": "group-2-title",
+        "label": "Group title 2"
+    },
       {
         "type": "text",
         "id": "filter-1-title",
