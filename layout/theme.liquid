@@ -53,6 +53,10 @@
   {% if settings.favicon %}
   <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
   {% endif %}
+
+  <script>
+      $("<style type=\"text/css\">span.money{ display: none; }</style>").appendTo("head");
+  </script>
 </head>
 
 <body class="gridlock shifter {% if template == 'index' %}{{ template }}{% endif %}">
@@ -85,5 +89,6 @@
   {% include 'popup' %}
   {% endif %}
   {% include 'ajaxify-cart' %}
+   {% include 'mlveda-multipricing-updateprice' %}
 </body>
 </html>

@@ -425,8 +425,9 @@ theme.Product = (function() {
     }); 
          
     // Product images edit to work with new theme editor
-    var initProdpage = function(Imagezoom) {                                                                                                                   
-      $('.slide-gallery li').zoom(); 
+    var initProdpage = function(Imagezoom) {
+        if (window.screen.width >= 740)
+            Imagezoom.zoom();
     };    
     initProdpage($('.slide-gallery li'));
 
@@ -631,3 +632,15 @@ $(document).ready(function() {
   sections.register('collection-section', theme.Collection);
   sections.register('mobile-navigation', theme.mobileNav);
 });
+
+var topbar, containtogrid, menulink, yPos;
+function yScroll(){
+    topbar = document.getElementById('shopify-section-header');
+    yPos = window.pageYOffset;
+    if(yPos > 0){
+        topbar.classList.add("scrolled");
+    } else {
+        topbar.classList.remove("scrolled");
+    }
+}
+window.addEventListener("scroll", yScroll);

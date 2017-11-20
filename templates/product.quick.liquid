@@ -35,8 +35,9 @@
 
     <div id="product-right" class="desktop-6 mobile-3">
       <div id="product-description">
-        {% if settings.vendor %}<h3>{{ product.vendor }}</h3>{% endif %}
-        <h2>{{ product.title | escape }}</h2>   
+
+        <h2>{{ product.title }}</h2>
+          {% if settings.vendor %}<span class="product-vendor">{{ product.vendor }}</span>{% endif %}
         <p id="product-price">
           {% if product.available %}
           {% if product.compare_at_price > product.price %}

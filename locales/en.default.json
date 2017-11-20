@@ -35,6 +35,11 @@
       "title": "Search our store",
       "placeholder": "Enter your search terms",
       "submit": "Search"
+    },
+    "social": {
+      "share_on_facebook": "Share",
+      "share_on_twitter": "Tweet",
+      "share_on_pinterest": "Pin it"
     }
   },
   "blogs": {

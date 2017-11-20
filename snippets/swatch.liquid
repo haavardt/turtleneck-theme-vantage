@@ -3,8 +3,8 @@
 {% endcomment %}
 
 {% assign file_extension = 'png' %}
-
-{% if swatch == blank %}
+{% if swatch == 'mlveda_country' %}
+{% else if swatch == blank %}
 <div class="swatch error">
   <p>You must include the snippet swatch.liquid with the name of a product option.</p> 
   <p>Use: <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>

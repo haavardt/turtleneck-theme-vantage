@@ -1,0 +1,268 @@
+<section class="homepage-section terms-and-conditions index-section" data-section-id="{{ section.id }}">
+
+  <div class="row no-fouc">
+    {% for block in section.blocks %}
+
+        {%- assign img_url = block.settings.asset_url | asset_url -%}
+        <div class="homepage-terms term-{{ block.id }} {% if block.settings.hide_on_mobile %}mobile-hide{% endif %}">
+
+            {% if block.settings.asset_url != blank %}
+            <img src="{{ img_url }}" />
+            {% else %}
+            <div class="onboard">
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            {% endif %}
+            <div class="caption">
+              {% if block.settings.image_text != blank %}
+              <span>{{ block.settings.image_text }}</span>
+              {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+  </div>
+
+  {% if section.blocks.size == 0 %}
+  {% include 'no-blocks' %}
+  {% endif %}  
+</section>
+
+
+<div class="clear"></div>
+
+<style>
+    .terms-and-conditions .row {
+        text-align: center;
+    }
+    .terms-and-conditions {
+        margin-bottom: 40px;
+    }
+    .homepage-terms img {
+        max-height: 55px;
+    }
+    .homepage-terms {
+        display: inline-block;
+        margin: 0 25px;
+        max-width: 130px;
+        vertical-align: top;
+    }
+    .homepage-terms .caption {
+        text-align: center;
+    }
+    .homepage-terms .caption {
+        line-height: 1.3em;
+        font-size: {{ section.settings.text_size }};
+    }
+
+    @media only screen and (max-width: 980px) {
+        .homepage-terms {
+            max-width: 100px;
+            margin: 0 15px;
+        }
+    }
+
+    @media only screen and (max-width: 740px) {
+        .terms-and-conditions {
+            background-color: #a6a6a6;
+            margin-top: -30px;
+            padding: 15px;
+        }
+        .homepage-terms {
+            display: block;
+            max-width: 100%;
+            color: #fff;
+            padding: 10px 0;
+            margin: 0;
+        }
+        .homepage-terms .caption {
+            text-align: left;
+            vertical-align: middle;
+            display: table-cell;
+            font-size: {{ section.settings.mobile_text_size }};
+        }
+        .homepage-terms .caption {
+            height: 25px;
+        }
+        .homepage-terms img {
+            max-height: 25px;
+            max-width: 60px;
+            margin-right:20px;
+            float: left;
+        }
+    }
+</style>
+
+{% schema %}
+{
+    "name": "Terms and conditions",
+	"max_blocks": 6,
+    "settings": [
+  		{
+        "type": "select",
+        "id": "text_size",
+        "label": "Text size",
+        "options": [
+          {
+            "value": "12px",
+            "label": "12px"
+          },
+          {
+            "value": "14px",
+            "label": "14px"
+          },
+          {
+            "value": "16px",
+            "label": "16px"
+          },
+          {
+            "value": "18px",
+            "label": "18px"
+          },
+          {
+            "value": "20px",
+            "label": "20px"
+          },
+          {
+            "value": "22px",
+            "label": "22px"
+          },
+          {
+            "value": "24px",
+            "label": "24px"
+          },
+          {
+            "value": "26px",
+            "label": "26px"
+          },
+          {
+            "value": "28px",
+            "label": "28px"
+          },
+          {
+            "value": "30px",
+            "label": "30px"
+          },
+          {
+            "value": "32px",
+            "label": "32px"
+          },
+          {
+            "value": "34px",
+            "label": "34px"
+          },
+          {
+            "value": "36px",
+            "label": "36px"
+		  }
+        ]
+      },
+    {
+    "type": "select",
+    "id": "mobile_text_size",
+    "label": "Mobile text size",
+    "options": [
+    {
+    "value": "12px",
+    "label": "12px"
+    },
+    {
+    "value": "14px",
+    "label": "14px"
+    },
+    {
+    "value": "16px",
+    "label": "16px"
+    },
+    {
+    "value": "18px",
+    "label": "18px"
+    },
+    {
+    "value": "20px",
+    "label": "20px"
+    },
+    {
+    "value": "22px",
+    "label": "22px"
+    },
+    {
+    "value": "24px",
+    "label": "24px"
+    },
+    {
+    "value": "26px",
+    "label": "26px"
+    },
+    {
+    "value": "28px",
+    "label": "28px"
+    },
+    {
+    "value": "30px",
+    "label": "30px"
+    },
+    {
+    "value": "32px",
+    "label": "32px"
+    },
+    {
+    "value": "34px",
+    "label": "34px"
+    },
+    {
+    "value": "36px",
+    "label": "36px"
+    }
+    ]
+    }
+    ],
+	"blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "text",
+          "id": "asset_url",
+          "label": "SVG name (asset)"
+        },
+       {
+        "type": "text",
+        "id": "image_text",
+        "label": "Image text"
+       },
+        {
+        "type": "checkbox",
+        "id": "hide_on_mobile",
+        "label": "Hide on mobile"
+        }]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Terms and conditions",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+        "type": "image"
+        },
+        {
+        "type": "image"
+        },
+        {
+        "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

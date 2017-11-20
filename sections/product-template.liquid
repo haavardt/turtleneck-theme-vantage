@@ -32,10 +32,8 @@
         {% include 'product-form' %}  
       </div>
       <div class="desc">
-        <div id="soc">
-          {% include 'social' with product %}
-        </div>
-        <h4>{{ 'products.product.product_details' | t }}</h4>
+
+
         <div class="rte">{{ product.description | split: '<!-- split -->' | first }}</div>
         {% unless section.blocks.size == 0 %}
         <ul class="vantage-accordion">       
@@ -52,6 +50,9 @@
 
         
         {% endunless %}
+        <div id="soc">
+            {% include 'social' with product %}
+        </div>
       </div>
       
       {% if section.settings.type or section.settings.vendor or section.settings.collection %}
@@ -75,7 +76,6 @@
     <div class="clear"></div>
     {% if product.description contains '<!-- split -->' %}
     <div id="split-description" class="desktop-12 tablet-6 mobile-3">
-      <h4 class="section-title">{{ 'products.product.product_more_details' | t }}</h4>
       <div class="rte">{{ product.description | split: '<!-- split -->' | last }}</div>
     </div>
     {% endif %}
